@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+
+   revproxy:
+     container_name: revproxy
+     build: .
+     tty: true
+     restart: always
+     ports:
+       - 80:80
+     networks:
+       - mynet
+
+networks:
+    mynet:
+    
