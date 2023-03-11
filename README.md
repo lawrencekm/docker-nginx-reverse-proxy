@@ -1,7 +1,31 @@
 I believe Nginx dont take in account Docker resolver (127.0.0.11), so please, can you try adding:
 
+This is because the docker dns server does not do ipv6, but the nginx resolver queries for both ipv6 and ipv4 as of 1.5.8: http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver
+
+You can disable ipv6 easily enough on the resolver line in nginx (see the link above, it's just ipv6=off) and then it should start working for you.
+
+Syntax:	resolver address ... [valid=time] [ipv6=on|off] [status_zone=zone];
+Default:	—
+Context:	http, server, location
+Configures name servers used to resolve names of upstream servers into addresses, for example:
+
+resolver 127.0.0.1 [::1]:5353;
+The address can be specified as a domain name or IP address, with an optional port (1.3.1, 1.2.2). If port is not specified, the port 53 is used. Name servers are queried in a round-robin fashion.
+
+Before version 1.1.7, only a single name server could be configured. Specifying name servers using IPv6 addresses is supported starting from versions 1.3.1 and 1.2.2.
+By default, nginx will look up both IPv4 and IPv6 addresses while resolving. If looking up of IPv6 addresses is not desired, the ipv6=off parameter can be specified.
+
+Resolving of names into IPv6 addresses is supported starting from version 1.5.8.
+By default, nginx caches answers using the TTL value of a response. An optional valid parameter allows overriding it:
+
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+
+
 resolver 127.0.0.11
 in your nginx configuration file?
+http {
+    resolver 127.0.0.11 ipv6=off;
+}
 
  several cases where I had this error, adding resolver_timeout 1s; to the Nginx config solved the issue. Most of the time I don't have a resolver entry.
 
