@@ -6,10 +6,7 @@ Motivation was to quickly host several websites on one server for an event. I ac
 
 
 ## Use this to:
-Host multiple sites behind docker nginx.
-Hosting Multiple Sites Behind a Single Nginx Server:
-Implement basic load balancing to distribute incoming traffic across multiple backend(upstream) servers to improve the overall performance and reliability of your applications.
-
+Hosting Multiple Sites Behind a Single Nginx Server or to Implement basic load balancing to distribute incoming traffic across multiple backend(upstream) servers to improve the overall performance and reliability of your applications.
 
 ### Usage Instructions
 Requires docker to be running
